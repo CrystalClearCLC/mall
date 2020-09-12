@@ -1,6 +1,6 @@
 import {request} from './request.js'
 
- export function getAboutmultidata() {
+ export function getAboutMultidata() {
   return request({
     url: '/home/multidata'
   })

@@ -1,6 +1,6 @@
 <template>
-  <div class="goods-item">
-    <img :src="goodsItem.show.img" alt="">
+  <div class="goods-item" >
+    <img :src="goodsItem.show.img" alt=""  @load="imageLoad" >
     <div class="goods-info">
       <p>{{goodsItem.title}}</p>
       <span class="price">{{goodsItem.price}}</span>
@@ -19,6 +19,13 @@
           return {}
         }
       }
+    },
+    methods: {
+      imageLoad() {
+        //原生的JS监听图片加载
+        //
+        this.$bus.$emit('itemImageLoad')
+      }
     }
   }
 </script>
@@ -27,6 +34,7 @@
   .goods-item {
     padding-bottom: 40px;
     position: relative;
+
     width: 48%;
   }
 
@@ -61,13 +69,13 @@
     position: relative;
   }
 
-  .goods-info .collect:after {
+  .goods-info .collect::before {
     content: '';
     position: absolute;
-   /* left: -15px;*/
+    left: -15px;
     top: -1px;
     width: 14px;
     height: 14px;
-    background: url(~assets/img/common/collect.svg) 0 0/14px 14px;
+    background: url("~assets/img/common/collect.svg") 0 0/14px 14px;
   }
 </style>

@@ -1,7 +1,6 @@
 <template>
   <div class="goods">
-    <!-- <div v-for="item in goods" v-bind:key="item" >item: {{item}} <br></div> -->
-    <goods-list-item v-for="item in goods" :key="item.uuid()" :goods-item="item"/>
+    <goods-list-item v-for="item in goods" :goods-item="item"/>
   </div>
 </template>
 

@@ -14,15 +14,15 @@
 </template>
 
 <script>
-	export default {
-		name: "Swiper",
+  export default {
+    name: "Swiper",
     props: {
       interval: {
-      type: Number,
+        type: Number,
         default: 3000
       },
       animDuration: {
-      type: Number,
+        type: Number,
         default: 300
       },
       moveRatio: {
@@ -53,7 +53,7 @@
       }, 200)
     },
     methods: {
-    /**
+      /**
        * 定时器操作
        */
       startTimer: function () {
@@ -142,6 +142,7 @@
        * 拖动事件的处理
        */
       touchStart: function (e) {
+        console.log(e)
         // 1.如果正在滚动, 不可以拖动
         if (this.scrolling) return;
 
@@ -153,6 +154,7 @@
       },
 
       touchMove: function (e) {
+        console.log(e)
         // 1.计算出用户拖动的距离
         this.currentX = e.touches[0].pageX;
         this.distance = this.currentX - this.startX;
@@ -164,9 +166,10 @@
       },
 
       touchEnd: function (e) {
+        console.log(e)
         // 1.获取移动的距离
         let currentMove = Math.abs(this.distance);
-        console.log(e)
+
         // 2.判断最终的距离
         if (this.distance === 0) {
           return
@@ -206,7 +209,7 @@
         this.startTimer();
       }
     }
-	}
+  }
 </script>
 
 <style scoped>
