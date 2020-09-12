@@ -1,16 +1,20 @@
 <template>
 	<div class="tab-bar-item" @click="itemClick">
+
 		<slot name="item-icon" v-if="isActive">
 			<img src="~assets/logo.png" width="49px"/>
 		</slot>
+
 		<slot name="item-icon-active" v-else>
 			<img src="~assets/img/tabber/girl.jpg" alt="">
 		</slot>
+
 		<div :style="activeStyle">
 			<slot name="item-text">
 				<div>CLC</div>
 			</slot>
 		</div>
+
 	</div>
 </template>
 
@@ -34,7 +38,6 @@
 		},
 		computed:{
 			isActive() {
-				/* this.$route 最活跃的route */
 				return this.$route.path.indexOf(this.path)
 			},
 			activeStyle() {
@@ -43,9 +46,10 @@
 		},
 		methods:{
 			itemClick(){
-				console.log(this.$route.path);
-				if(this.isActive) {
-						this.$router.push(this.path)
+				if(this.isActive && !(this.$route.path == '/' && this.path == '/home')) {
+            console.log('this.path');
+            console.log(this.path);
+             this.$router.push(this.path);
 				}
 			}
 		}
@@ -62,10 +66,13 @@
 		text-align: center;
 		/* 49移动端常用 */
 		height: 49px;
-		border: 1px solid black;
+		/* border: 1px solid black; */
 	}
 	.tab-bar-item img{
 		width: 24px;
 		height: 24px;
+		margin-top: 3px;
+		vertical-align: middle;
+		margin-bottom: 2px;
 	}
 </style>
