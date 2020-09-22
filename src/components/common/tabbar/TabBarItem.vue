@@ -47,7 +47,6 @@
 		methods:{
 			itemClick(){
 				if(this.isActive && !(this.$route.path == '/' && this.path == '/home')) {
-            console.log('this.path');
             console.log(this.path);
              this.$router.push(this.path);
 				}

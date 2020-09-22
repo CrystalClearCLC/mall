@@ -1,6 +1,6 @@
 <template>
   <div class="goods-item" >
-    <img :src="goodsItem.show.img" alt=""  @load="imageLoad" >
+    <img :src="goodsItem.show.img" alt=""  @load="imageLoad" @click="itemClick">
     <div class="goods-info">
       <p>{{goodsItem.title}}</p>
       <span class="price">{{goodsItem.price}}</span>
@@ -25,6 +25,14 @@
         //原生的JS监听图片加载
         //
         this.$bus.$emit('itemImageLoad')
+      },
+      itemClick() {
+        this.$router.push({
+          path: 'detail',
+          query: {
+            title: this.goodsItem.title
+          }
+        })
       }
     }
   }

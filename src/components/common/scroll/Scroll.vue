@@ -29,8 +29,6 @@
     },
     mounted() {
       // 1.创建BScroll对象
-      console.log(this.$refs)
-
       this.scroll = new BScroll(this.$refs.wrapper, {
         click: true,
         probeType: this.probeType,

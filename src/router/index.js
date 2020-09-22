@@ -3,7 +3,8 @@ import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
 const G_IDLE = () => import('views/(G)-IDLE/(G)-IDLE')
 const CLC = () => import('views/CLC/CLC')
-
+const Detail = () => import('views/detail/Detail')
+const shopCart = () => import('views/ShopCart/ShopCart')
 
 Vue.use(VueRouter)
 
@@ -26,6 +27,16 @@ Vue.use(VueRouter)
     path: '/clc',
     name: 'CLC',
     component: CLC
+  },
+  {
+    path: '/detail',
+    name: 'Detail',
+    component: Detail
+  },
+  {
+    path: '/shopcart',
+    name: 'shopCart',
+    component: shopCart
   },
   {
     path: '/g_idle',

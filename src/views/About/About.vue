@@ -5,7 +5,7 @@
     <tab-control class="tab-control"
                  :titles="['流行', '新款', '精选']"
                  @tabClick="tabClick"
-                 ref="tabControl"
+                 ref="topTabControl"
                  :class="{fixed:isTabFixed}"
                  v-show="isTabFixed"
                  />
@@ -74,13 +74,18 @@
         testgoods: TestGoods,
         showimg: false,
         taboffsetTop: 0,
-        isTabFixed: false
+        isTabFixed: false,
+        saveY: 0
       }
     },
     computed: {
       showGoods() {
         return this.goods[this.currentType].list
       }
+    },
+    activated() {
+      this.$refs.scroll.scrollTo(0, this.saveY)
+      this.$refs.scroll.refresh()
     },
     created() {
       // 1.请求多个数据
@@ -90,11 +95,14 @@
       this.getAboutGoods('pop')
       this.getAboutGoods('new')
       this.getAboutGoods('sell')
-
+    },
+    deactivated() {
+      //console.log('deactivated')
+      this.saveY = this.$refs.scroll.scroll.y
+      //console.log(this.saveY)
+      this.$bus.$off('itemImgaLoad',this.itemImgListener)
     },
     mounted() {
-
-
       //图片加载完成的事件监听
       const scroll = this.$refs.scroll
       /* const rf = function(){
@@ -102,38 +110,30 @@
           scroll.refresh
         }
       } */
-      const refresh = this.debounce(scroll.refresh, 50)
 
+      //duirefresh进行防抖操作
+      const refresh = this.debounce(scroll.refresh, 50)
+      //img虽然被挂载，但是其中的图片还没有占据高度
       this.$bus.$on('itemImageLoad', () => {
           if(scroll){
-
              refresh()
           }
       })
-
     },
     methods: {
       /*
-
+          防抖/节流 函数
       */
       debounce(func, delay) {
         let timer = null
-
         return function (...args) {
-          let index = 0
           if(timer) clearTimeout(timer)
-
           timer = setTimeout(() => {
-            console.log(index++)
+            console.log('refresh')
             func.apply(this, args)
-
           },delay)
-
         }
-
       },
-
-
       /**
        * 事件监听相关的方法
        */
@@ -149,13 +149,19 @@
             this.currentType = 'sell'
             break
         }
+
+        /* this.showGoods = this.good[this.currentType].list */
+        //让两个TabControl的currentIndex保持一致
+        this.$refs.tabControl.currentIndex = index
+        this.$refs.topTabControl.currentIndex = index
+
       },
       backClick() {
         this.$refs.scroll.scrollTo(0, 0)
       },
       contentScroll(position) {
 
-        this.isShowBackTop = (-position.y) > 1000
+        this.isShowBackTop = (-position.y) > 500
         //决定tabControl师傅吸顶（positon：fixed）
         this.isTabFixed = (-position.y) >this.taboffsetTop
       },
@@ -172,6 +178,7 @@
 
         this.taboffsetTop=this.$refs.tabControl.$el.offsetTop
       },
+
 
       /**
        * 网络请求相关的方法
@@ -208,7 +215,6 @@
   .home-nav {
     background-color: var(--color-tint);
     color: #fff;
-
 
     /* 原生滚动时定位*/
     /* position: fixed;

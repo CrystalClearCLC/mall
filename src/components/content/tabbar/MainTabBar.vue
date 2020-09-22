@@ -4,14 +4,16 @@
       <tab-bar-item path="/home">
           <template v-slot:item-text><div>Home</div></template>
       </tab-bar-item>
-			<tab-bar-item activeColor='pink'></tab-bar-item>
 			<tab-bar-item path="/g_idle">
 				<template v-slot:item-icon><img src="~assets/img/tabber/(G)-IDLE.jpg" alt=""></template>
 				<template v-slot:item-text><div>(G)-IDLE</div></template>
 			</tab-bar-item>
 			<tab-bar-item path="/about">
-				<template v-slot:item-text><div>About</div></template>
+				<template v-slot:item-text><div>商城</div></template>
 			</tab-bar-item>
+      <tab-bar-item activeColor='pink' path = '/shopcart'>
+        <template v-slot:item-text><div>购物车</div></template>
+      </tab-bar-item>
       <!-- <span v-for="item in testdata" v-bind:key="item">
        <tab-bar-item path="/g_idle">
           <template v-slot:item-icon><img src="~assets/img/tabber/(G)-IDLE.jpg" alt=""></template>
